@@ -43,6 +43,9 @@ export class UserSettings {
   public discordId?: string;
 
   @Column({ nullable: true })
+  public telegramId?: string;
+
+  @Column({ nullable: true })
   public pushbulletAccessToken?: string;
 
   @Column({ nullable: true })

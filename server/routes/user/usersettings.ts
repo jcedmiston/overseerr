@@ -52,6 +52,7 @@ userSettingsRoutes.get<{ id: string }, UserSettingsGeneralResponse>(
       return res.status(200).json({
         username: user.username,
         discordId: user.settings?.discordId,
+        telegramId: user.settings?.telegramId,
         locale: user.settings?.locale,
         region: user.settings?.region,
         originalLanguage: user.settings?.originalLanguage,
@@ -113,6 +114,7 @@ userSettingsRoutes.post<
       user.settings = new UserSettings({
         user: req.user,
         discordId: req.body.discordId,
+        telegramId: req.body.telegramId,
         locale: req.body.locale,
         region: req.body.region,
         originalLanguage: req.body.originalLanguage,
@@ -121,6 +123,7 @@ userSettingsRoutes.post<
       });
     } else {
       user.settings.discordId = req.body.discordId;
+      user.settings.telegramId = req.body.telegramId;
       user.settings.locale = req.body.locale;
       user.settings.region = req.body.region;
       user.settings.originalLanguage = req.body.originalLanguage;
@@ -133,6 +136,7 @@ userSettingsRoutes.post<
     return res.status(200).json({
       username: user.username,
       discordId: user.settings.discordId,
+      telegramId: user.settings.telegramId,
       locale: user.settings.locale,
       region: user.settings.region,
       originalLanguage: user.settings.originalLanguage,

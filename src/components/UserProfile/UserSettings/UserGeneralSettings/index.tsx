@@ -49,6 +49,10 @@ const messages = defineMessages({
   discordIdTip:
     'The <FindDiscordIdLink>multi-digit ID number</FindDiscordIdLink> associated with your Discord user account',
   validationDiscordId: 'You must provide a valid Discord user ID',
+  telegramId: 'Telegram User ID',
+  telegramIdTip:
+    'Send a message to the <FindDiscordIdLink>@userinfobot</FindDiscordIdLink> to find the multi-digit ID number associated with your Telegram user account',
+  validationTelegramId: 'You must provide a valid Telegram user ID',
   plexwatchlistsyncmovies: 'Auto-Request Movies',
   plexwatchlistsyncmoviestip:
     'Automatically request movies on your <PlexWatchlistSupportLink>Plex Watchlist</PlexWatchlistSupportLink>',
@@ -85,6 +89,9 @@ const UserGeneralSettings = () => {
     discordId: Yup.string()
       .nullable()
       .matches(/^\d{17,19}$/, intl.formatMessage(messages.validationDiscordId)),
+    telegramId: Yup.string()
+      .nullable()
+      .matches(/^-?\d+$/, intl.formatMessage(messages.validationTelegramId)),
   });
 
   useEffect(() => {
@@ -121,6 +128,7 @@ const UserGeneralSettings = () => {
         initialValues={{
           displayName: data?.username,
           discordId: data?.discordId,
+          telegramId: data?.telegramId,
           locale: data?.locale,
           region: data?.region,
           originalLanguage: data?.originalLanguage,
@@ -138,6 +146,7 @@ const UserGeneralSettings = () => {
             await axios.post(`/api/v1/user/${user?.id}/settings/main`, {
               username: values.displayName,
               discordId: values.discordId,
+              telegramId: values.telegramId,
               locale: values.locale,
               region: values.region,
               originalLanguage: values.originalLanguage,
@@ -265,6 +274,36 @@ const UserGeneralSettings = () => {
                     touched.discordId &&
                     typeof errors.discordId === 'string' && (
                       <div className="error">{errors.discordId}</div>
+                    )}
+                </div>
+              </div>
+              <div className="form-row">
+                <label htmlFor="telegramId" className="text-label">
+                  {intl.formatMessage(messages.telegramId)}
+                  {currentUser?.id === user?.id && (
+                    <span className="label-tip">
+                      {intl.formatMessage(messages.telegramIdTip, {
+                        FindDiscordIdLink: (msg: React.ReactNode) => (
+                          <a
+                            href="https://telegram.me/userinfobot"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {msg}
+                          </a>
+                        ),
+                      })}
+                    </span>
+                  )}
+                </label>
+                <div className="form-input-area">
+                  <div className="form-input-field">
+                    <Field id="telegramId" name="telegramId" type="text" />
+                  </div>
+                  {errors.telegramId &&
+                    touched.telegramId &&
+                    typeof errors.telegramId === 'string' && (
+                      <div className="error">{errors.telegramId}</div>
                     )}
                 </div>
               </div>
