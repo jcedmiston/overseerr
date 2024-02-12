@@ -51,7 +51,7 @@ const messages = defineMessages({
   validationDiscordId: 'You must provide a valid Discord user ID',
   telegramId: 'Telegram User ID',
   telegramIdTip:
-    'Send a message to the <FindDiscordIdLink>@userinfobot</FindDiscordIdLink> to find the multi-digit ID number associated with your Telegram user account',
+    'Message the <FindTelegramIDLink>@userinfobot</FindTelegramIDLink> to find your multi-digit Telegram user ID',
   validationTelegramId: 'You must provide a valid Telegram user ID',
   plexwatchlistsyncmovies: 'Auto-Request Movies',
   plexwatchlistsyncmoviestip:
@@ -283,7 +283,7 @@ const UserGeneralSettings = () => {
                   {currentUser?.id === user?.id && (
                     <span className="label-tip">
                       {intl.formatMessage(messages.telegramIdTip, {
-                        FindDiscordIdLink: (msg: React.ReactNode) => (
+                        FindTelegramIDLink: (msg: React.ReactNode) => (
                           <a
                             href="https://telegram.me/userinfobot"
                             target="_blank"
